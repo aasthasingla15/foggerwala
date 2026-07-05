@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foggerwala Video Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0B2E59;
+      color: #FFFFFF;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 5px;
+      color: #4FC3F7;
+    }
+    .status {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px 20px;
+      border-radius: 8px;
+      margin: 15px 0;
+      font-size: 1.1rem;
+      border-left: 5px solid #1E88E5;
+    }
+    .btn-group {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 25px;
+    }
+    button {
+      background: #1E88E5;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    button:hover {
+      background: #1565C0;
+    }
+    button:disabled {
+      background: #555;
+      cursor: not-allowed;
+    }
+    .canvas-container {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .preview-box {
+      background: #071E3A;
+      padding: 15px;
+      border-radius: 12px;
+      border: 2px solid #1E88E5;
+    }
+    canvas {
+      background: #000;
+      max-width: 100%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      border-radius: 6px;
+    }
+    .log-box {
+      background: #051427;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: left;
+      font-family: monospace;
+      max-height: 200px;
+      overflow-y: auto;
+      margin-top: 25px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Foggerwala Video Creator</h1>
+    <p>Generates high-definition, silent background videos for desktop and mobile websites.</p>
+
+    <div class="status" id="statusText">Status: Idle. Click a button to start rendering.</div>
+
+    <div class="btn-group">
+      <button id="btnDesktop" onclick="startGeneration('desktop')">Generate & Download Desktop Video (16:9)</button>
+      <button id="btnMobile" onclick="startGeneration('mobile')">Generate & Download Mobile Video (9:16)</button>
+      <button id="btnPoster" onclick="capturePoster()">Save Fallback Poster Image</button>
+    </div>
+
+    <div class="canvas-container">
+      <div class="preview-box">
+        <h3>Live Canvas Preview</h3>
+        <canvas id="mainCanvas"></canvas>
+      </div>
+    </div>
+
+    <div class="log-box" id="logBox">
+      <div>[System] Ready.</div>
+    </div>
+  </div>
+
+  <script>
+    const logBox = document.getElementById('logBox');
+    const statusText = document.getElementById('statusText');
+    const canvas = document.getElementById('mainCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function log(msg) {
+      const div = document.createElement('div');
+      div.innerText = `[${new Date().toLocaleTimeString()}] ${msg}`;
+      logBox.appendChild(div);
+      logBox.scrollTop = logBox.scrollHeight;
+      console.log(msg);
+    }
+
+    // Relative asset paths in the same directory to avoid CORS/taint issues
+    const ASSETS = {
+      technician: 'technician.png',
+      products: 'products.png',
+      treatment: 'treatment.png',
+      van: 'van.png',
+      before_after: 'before_after.png'
+    };
+
+    // Load 51 Termatrac frames
+    const termatracFrames = [];
+    const numFrames = 51;
+    let framesLoaded = 0;
+    
+    // We preload all images
+    const images = {};
+    let assetsLoaded = 0;
+    const totalAssets = 5 + numFrames;
+
+    function preloadAssets(callback) {
+      log('Preloading image assets...');
+      
+      // Load 5 main images
+      Object.keys(ASSETS).forEach(key => {
+        images[key] = new Image();
+        images[key].onload = () => {
+          assetsLoaded++;
+          log(`Loaded main asset: ${key} (${assetsLoaded}/${totalAssets})`);
+          if (assetsLoaded === totalAssets) callback();
+        };
+        images[key].onerror = () => {
+          log(`Error loading main asset: ${key}. Please make sure you have run setup.ps1 first to copy assets to the workspace.`);
+        };
+        images[key].src = ASSETS[key];
+      });
+
+      // Load 51 Termatrac frames
+      for (let i = 1; i <= numFrames; i++) {
+        const frameNum = String(i).padStart(3, '0');
+        const img = new Image();
+        img.onload = () => {
+          assetsLoaded++;
+          if (assetsLoaded === totalAssets) callback();
+        };
+        img.onerror = () => {
+          log(`Error loading frame: ${frameNum}`);
+        };
+        img.src = `ezgif-frame-${frameNum}.jpg`;
+        termatracFrames.push(img);
+      }
+    }
+
+    let assetsReady = false;
+    preloadAssets(() => {
+      assetsReady = true;
+      log('All assets preloaded successfully and ready for rendering!');
+      statusText.innerText = 'Status: Ready to render. Choose a resolution.';
+    });
+
+    // Define Slides configuration
+    // Durations are in seconds
+    const SLIDES = [
+      {
+        id: 'title',
+        duration: 3,
+        type: 'color',
+        bgColor: '#0B2E59',
+        text: 'FOGGERWALA',
+        subtext: 'Pest Control, Equipment & Chemistry',
+        isTitle: true
+      },
+      {
+        id: 'technician',
+        duration: 5,
+        type: 'image',
+        imageKey: 'technician',
+        text: 'Certified Pest Control Professionals'
+      },
+      {
+        id: 'products',
+        duration: 5,
+        type: 'image',
+        imageKey: 'products',
+        text: 'WHO & CIB Approved Solutions'
+      },
+      {
+        id: 'termatrac',
+        duration: 7,
+        type: 'video', // Loop the 51 Termatrac frames
+        text: 'Termatrac T3i – No Wall Breaking Required',
+        subtext: 'Non-Invasive Termite Detection'
+      },
+      {
+        id: 'treatment',
+        duration: 5,
+        type: 'image',
+        imageKey: 'treatment',
+        text: '20+ Years of Experience'
+      },
+      {
+        id: 'before_after',
+        duration: 5,
+        type: 'image',
+        imageKey: 'before_after',
+        text: 'Advanced Termite & Pest Treatments'
+      },
+      {
+        id: 'van',
+        duration: 5,
+        type: 'image',
+        imageKey: 'van',
+        text: 'PAN India Service Network'
+      },
+      {
+        id: 'closing',
+        duration: 5,
+        type: 'color',
+        bgColor: '#0B2E59',
+        isClosing: true
+      }
+    ];
+
+    const TRANSITION_DURATION = 0.5; // 0.5s crossfade
+    const FPS = 30;
+
+    function renderFrame(time, width, height) {
+      // Find current slide and next slide
+      let accumTime = 0;
+      let slideIndex = 0;
+      let slideTime = 0;
+
+      for (let i = 0; i < SLIDES.length; i++) {
+        if (time >= accumTime && time < accumTime + SLIDES[i].duration) {
+          slideIndex = i;
+          slideTime = time - accumTime;
+          break;
+        }
+        accumTime += SLIDES[i].duration;
+      }
+
+      // Handle loop blend back to slide 0 in the final 0.5 seconds of the closing slide
+      let isLoopTransition = false;
+      let loopProgress = 0;
+      if (slideIndex === SLIDES.length - 1 && slideTime >= SLIDES[slideIndex].duration - TRANSITION_DURATION) {
+        isLoopTransition = true;
+        loopProgress = (slideTime - (SLIDES[slideIndex].duration - TRANSITION_DURATION)) / TRANSITION_DURATION;
+      }
+
+      // Is it a normal transition to the next slide?
+      let isTransition = false;
+      let transitionProgress = 0;
+      let nextSlideIndex = (slideIndex + 1) % SLIDES.length;
+
+      if (!isLoopTransition && slideTime >= SLIDES[slideIndex].duration - TRANSITION_DURATION) {
+        isTransition = true;
+        transitionProgress = (slideTime - (SLIDES[slideIndex].duration - TRANSITION_DURATION)) / TRANSITION_DURATION;
+      }
+
+      // Clear canvas
+      ctx.fillStyle = '#0B2E59';
+      ctx.fillRect(0, 0, width, height);
+
+      // Helper function to draw a slide content
+      function drawSlideContent(slide, sTime, alpha) {
+        ctx.save();
+        ctx.globalAlpha = alpha;
+
+        if (slide.type === 'color') {
+          ctx.fillStyle = slide.bgColor;
+          ctx.fillRect(0, 0, width, height);
+        } else if (slide.type === 'image') {
+          const img = images[slide.imageKey];
+          if (img) {
+            // Ken Burns zoom + pan
+            const progress = sTime / slide.duration;
+            const scale = 1.0 + 0.08 * progress; // 1.0 to 1.08 zoom
+            const panX = -20 * progress;
+            const panY = -10 * progress;
+
+            // Cover canvas fit
+            const imgRatio = img.width / img.height;
+            const canvasRatio = width / height;
+            let drawW, drawH, dx, dy;
+
+            if (imgRatio > canvasRatio) {
+              drawH = height * scale;
+              drawW = drawH * imgRatio;
+            } else {
+              drawW = width * scale;
+              drawH = drawW / imgRatio;
+            }
+
+            dx = (width - drawW) / 2 + panX;
+            dy = (height - drawH) / 2 + panY;
+
+            ctx.drawImage(img, dx, dy, drawW, drawH);
+          }
+        } else if (slide.type === 'video') {
+          // Play Termatrac frames at 10fps
+          const fps = 10;
+          const frameIndex = Math.floor(sTime * fps) % numFrames;
+          const img = termatracFrames[frameIndex];
+          if (img) {
+            // Slight Ken burns on video frames too
+            const progress = sTime / slide.duration;
+            const scale = 1.0 + 0.05 * progress;
+            const imgRatio = img.width / img.height;
+            const canvasRatio = width / height;
+            let drawW, drawH, dx, dy;
+
+            if (imgRatio > canvasRatio) {
+              drawH = height * scale;
+              drawW = drawH * imgRatio;
+            } else {
+              drawW = width * scale;
+              drawH = drawW / imgRatio;
+            }
+
+            dx = (width - drawW) / 2;
+            dy = (height - drawH) / 2;
+
+            ctx.drawImage(img, dx, dy, drawW, drawH);
+          }
+        }
+
+        // Apply dark navy bottom-third gradient
+        const grad = ctx.createLinearGradient(0, height * 0.6, 0, height);
+        grad.addColorStop(0, 'rgba(11, 46, 89, 0)');
+        grad.addColorStop(0.5, 'rgba(11, 46, 89, 0.4)');
+        grad.addColorStop(1, 'rgba(11, 46, 89, 0.85)');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, height * 0.6, width, height * 0.4);
+
+        // Draw text overlays
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#FFFFFF';
+
+        if (slide.isTitle) {
+          // Opening Slide Title Card
+          ctx.textBaseline = 'middle';
+          ctx.font = `bold ${Math.max(36, width * 0.05)}px 'Poppins', sans-serif`;
+          ctx.fillStyle = '#FFFFFF';
+          ctx.fillText(slide.text, width / 2, height / 2 - 20);
+
+          ctx.font = `500 ${Math.max(16, width * 0.02)}px 'Poppins', sans-serif`;
+          ctx.fillStyle = '#4FC3F7';
+          ctx.fillText(slide.subtext, width / 2, height / 2 + 30);
+        } else if (slide.isClosing) {
+          // Closing Slide Branding Card
+          ctx.textBaseline = 'middle';
+          ctx.font = `bold ${Math.max(30, width * 0.045)}px 'Poppins', sans-serif`;
+          ctx.fillStyle = '#4FC3F7';
+          ctx.fillText('FOGGERWALA', width / 2, height * 0.25);
+
+          ctx.font = `500 ${Math.max(14, width * 0.018)}px 'Poppins', sans-serif`;
+          ctx.fillStyle = '#FFFFFF';
+          ctx.fillText('Pest Control, Equipment & Chemistry', width / 2, height * 0.33);
+
+          // Phone Numbers
+          ctx.font = `bold ${Math.max(16, width * 0.022)}px 'Poppins', sans-serif`;
+          ctx.fillText('+91 98106 29361  |  +91 99903 65024', width / 2, height * 0.48);
+
+          // Button graphics (Call Now & WhatsApp)
+          const btnW = Math.max(140, width * 0.22);
+          const btnH = Math.max(36, height * 0.05);
+          const btnY = height * 0.65;
+          const gap = 20;
+
+          // Call button
+          ctx.fillStyle = '#1E88E5'; // Primary Blue
+          drawRoundedRect(ctx, width / 2 - btnW - gap/2, btnY, btnW, btnH, 8);
+          ctx.fill();
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = `bold ${Math.max(12, width * 0.016)}px sans-serif`;
+          ctx.fillText('📞 Call Now', width / 2 - btnW/2 - gap/2, btnY + btnH/2 + 5);
+
+          // WhatsApp button
+          ctx.fillStyle = '#25D366'; // WhatsApp Green
+          drawRoundedRect(ctx, width / 2 + gap/2, btnY, btnW, btnH, 8);
+          ctx.fill();
+          ctx.fillStyle = '#FFFFFF';
+          ctx.fillText('💬 WhatsApp', width / 2 + btnW/2 + gap/2, btnY + btnH/2 + 5);
+        } else {
+          // Standard text slide overlays at bottom third
+          ctx.textBaseline = 'bottom';
+          ctx.font = `bold ${Math.max(18, width * 0.028)}px 'Poppins', sans-serif`;
+          ctx.fillText(slide.text, width / 2, height - Math.max(40, height * 0.1));
+
+          if (slide.subtext) {
+            ctx.font = `500 ${Math.max(14, width * 0.018)}px 'Poppins', sans-serif`;
+            ctx.fillStyle = '#4FC3F7';
+            ctx.fillText(slide.subtext, width / 2, height - Math.max(15, height * 0.04));
+          }
+        }
+
+        ctx.restore();
+      }
+
+      // Draw rounded rect helper
+      function drawRoundedRect(ctx, x, y, width, height, radius) {
+        ctx.beginPath();
+        ctx.moveTo(x + radius, y);
+        ctx.lineTo(x + width - radius, y);
+        ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+        ctx.lineTo(x + width, y + height - radius);
+        ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+        ctx.lineTo(x + radius, y + height);
+        ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+        ctx.lineTo(x, y + radius);
+        ctx.quadraticCurveTo(x, y, x + radius, y);
+        ctx.closePath();
+      }
+
+      if (isLoopTransition) {
+        // Blend back to slide 0 (Title slide)
+        drawSlideContent(SLIDES[slideIndex], slideTime, 1.0 - loopProgress);
+        drawSlideContent(SLIDES[0], loopProgress * SLIDES[0].duration, loopProgress);
+      } else if (isTransition) {
+        // Crossfade to next slide
+        drawSlideContent(SLIDES[slideIndex], slideTime, 1.0 - transitionProgress);
+        drawSlideContent(SLIDES[nextSlideIndex], 0, transitionProgress);
+      } else {
+        // Regular slide playback
+        drawSlideContent(SLIDES[slideIndex], slideTime, 1.0);
+      }
+    }
+
+    // Calculate total duration in seconds
+    const totalDuration = SLIDES.reduce((acc, s) => acc + s.duration, 0);
+
+    let isRecording = false;
+
+    async function startGeneration(mode) {
+      if (!assetsReady) {
+        alert('Please wait for assets to preload first!');
+        return;
+      }
+      if (isRecording) return;
+      isRecording = true;
+
+      document.getElementById('btnDesktop').disabled = true;
+      document.getElementById('btnMobile').disabled = true;
+
+      let w = 1920, h = 1080;
+      if (mode === 'mobile') {
+        w = 1080;
+        h = 1920;
+      }
+
+      canvas.width = w;
+      canvas.height = h;
+
+      // Adjust CSS sizing for display preview
+      if (mode === 'mobile') {
+        canvas.style.height = '600px';
+        canvas.style.width = '337px'; // Keep 9:16 aspect ratio in preview
+      } else {
+        canvas.style.width = '640px';
+        canvas.style.height = '360px'; // Keep 16:9
+      }
+
+      log(`Starting generation for: ${mode} (${w}x${h})`);
+      statusText.innerText = `Status: Rendering & Recording ${mode} video...`;
+
+      // Setup MediaRecorder
+      const chunks = [];
+      const canvasStream = canvas.captureStream(FPS);
+
+      // Check supported formats, prefer vp9 or h264 webm/mp4
+      let options = { mimeType: 'video/webm;codecs=vp9' };
+      if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+        options = { mimeType: 'video/webm;codecs=h264' };
+      }
+      if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+        options = { mimeType: 'video/webm' };
+      }
+      if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+        options = { mimeType: 'video/mp4;codecs=h264' }; // fallback for Safari/Chrome on iOS
+      }
+      if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+        options = {}; // browser default
+      }
+      log(`Using mimeType: ${options.mimeType || 'Default browser codec'}`);
+
+      const recorder = new MediaRecorder(canvasStream, options);
+      recorder.ondataavailable = (e) => {
+        if (e.data && e.data.size > 0) chunks.push(e.data);
+      };
+
+      recorder.onstop = () => {
+        log('Recording complete. Compiling file blob...');
+        const blob = new Blob(chunks, { type: options.mimeType || 'video/webm' });
+        const videoURL = URL.createObjectURL(blob);
+        
+        // Auto trigger download
+        const a = document.createElement('a');
+        a.href = videoURL;
+        a.download = mode === 'mobile' ? 'mobile_hero.mp4' : 'desktop_hero.mp4';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        log(`Downloaded video as ${a.download}`);
+        
+        statusText.innerText = `Status: Finished generating ${mode} video! Download triggered.`;
+        document.getElementById('btnDesktop').disabled = false;
+        document.getElementById('btnMobile').disabled = false;
+        isRecording = false;
+      };
+
+      // Start recording
+      recorder.start();
+      
+      // Animation Loop
+      let startTime = null;
+      
+      function animate(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const timeInSec = (timestamp - startTime) / 1000;
+
+        if (timeInSec >= totalDuration) {
+          recorder.stop();
+          return;
+        }
+
+        renderFrame(timeInSec, w, h);
+        
+        // Output progress log occasionally
+        if (Math.floor(timeInSec * 10) % 20 === 0) {
+          const progressPercent = Math.min(100, Math.floor((timeInSec / totalDuration) * 100));
+          statusText.innerText = `Status: Recording ${mode} video (${progressPercent}%)...`;
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    function capturePoster() {
+      // Capture a nice still frame (e.g. Frame 3 from Termatrac slide)
+      // Set canvas to desktop resolution
+      canvas.width = 1920;
+      canvas.height = 1080;
+      
+      // Render slide 3 (Termatrac T3i) at middle of its duration
+      // Let's render at 14.5 seconds (which is in the middle of Termatrac slide)
+      renderFrame(14.5, 1920, 1080);
+      log('Captured still frame for poster at 14.5s');
+
+      try {
+        const dataURL = canvas.toDataURL('image/jpeg', 0.9);
+        const a = document.createElement('a');
+        a.href = dataURL;
+        a.download = 'fallback_poster.jpg';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        log('Downloaded fallback_poster.jpg');
+      } catch (err) {
+        log(`Error capturing poster: ${err.message}. If this is a taint error, please ensure you are running setup.ps1 first and accessing this page from a clean browser session.`);
+      }
+    }
+  </script>
+</body>
+</html>
