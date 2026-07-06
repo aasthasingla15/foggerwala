@@ -7,7 +7,7 @@ $ErrorActionPreference = "Stop"
 $brainDir = "C:\Users\AASTHA\.gemini\antigravity-ide\brain\2d4e0534-c985-4f17-be5e-cbf4efafd3a1"
 $templateDir = "C:\Users\AASTHA\Downloads\termaweb\website"
 $workspaceDir = "C:\Users\AASTHA\Downloads\ezgif-8c64fca99cec9d96-jpg"
-$websiteDir = $workspaceDir
+$websiteDir = "$workspaceDir\website"
 
 Write-Host "=============================================" -ForegroundColor Cyan
 Write-Host "  Foggerwala Private Limited Setup Script    " -ForegroundColor Cyan
@@ -96,6 +96,7 @@ if (Test-Path $mobileVideo) {
     Copy-Item -Path $mobileVideo -Destination (Join-Path $publicFolder "mobile_hero.mp4") -Force
     Write-Host "  Successfully copied mobile_hero.mp4 to website public directory!" -ForegroundColor Green
 } else {
+
     Write-Host "  Note: mobile_hero.mp4 not found in Downloads yet. You will need to render it using video_generator.html." -ForegroundColor Cyan
 }
 

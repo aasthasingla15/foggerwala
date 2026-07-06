@@ -18,6 +18,16 @@ if (Test-Path ".\website") {
     Remove-Item -Recurse -Force website -ErrorAction SilentlyContinue
 }
 
+# 1c. Copy images to public/images folder
+Write-Host "Copying service and technology images to public/images..." -ForegroundColor Yellow
+if (-not (Test-Path ".\public\images")) {
+    New-Item -ItemType Directory -Path ".\public\images" -Force | Out-Null
+}
+Copy-Item -Path ".\*.png" -Destination ".\public\images\" -Force
+Copy-Item -Path ".\*.jpg" -Destination ".\public\images\" -Force
+Copy-Item -Path ".\*.jpeg" -Destination ".\public\images\" -Force
+
+
 # 2. Add and commit all changed files
 Write-Host "`n[2/3] Staging and committing files to Git..." -ForegroundColor Yellow
 git add .
