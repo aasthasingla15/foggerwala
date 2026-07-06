@@ -16,8 +16,9 @@ Write-Host "`n[2/3] Staging and committing files to Git..." -ForegroundColor Yel
 git add .
 git commit -m "Update service details, process steps, local images, warranty terms, and contact page helpline dashboard"
 
-# 3. Push to GitHub main branch
-Write-Host "`n[3/3] Pushing to GitHub (origin main)..." -ForegroundColor Yellow
+# 3. Pull remote changes and Push to GitHub main branch
+Write-Host "`n[3/3] Pulling remote changes and Pushing to GitHub (origin main)..." -ForegroundColor Yellow
+git pull --rebase origin main
 git push origin main
 
 Write-Host "`n=============================================" -ForegroundColor Green
