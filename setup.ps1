@@ -65,12 +65,23 @@ foreach ($img in $publicImages) {
     }
 }
 
-# 5. Check and Copy Generated Videos if available
-Write-Host "`n[4/5] Checking for generated video files in Downloads..." -ForegroundColor Yellow
+# 5. Check and Copy Generated Videos and Logo if available
+Write-Host "`n[4/5] Checking for generated videos and company logo in Downloads..." -ForegroundColor Yellow
 $downloadsFolder = "C:\Users\AASTHA\Downloads"
 $desktopVideo = Join-Path $downloadsFolder "desktop_hero.mp4"
 $mobileVideo = Join-Path $downloadsFolder "mobile_hero.mp4"
+$logoFile = Join-Path $downloadsFolder "LOGO 1.jpg.jpeg"
 $publicFolder = Join-Path $websiteDir "public"
+
+# Copy logo if present
+if (Test-Path $logoFile) {
+    Copy-Item -Path $logoFile -Destination (Join-Path $publicFolder "logo.png") -Force
+    # Also copy to the active template directory so it is preserved
+    if (Test-Path $templateDir) {
+        Copy-Item -Path $logoFile -Destination (Join-Path $templateDir "public\logo.png") -Force
+    }
+    Write-Host "  Successfully copied company logo (logo.png) to website public directories!" -ForegroundColor Green
+}
 
 $copiedVideos = $false
 if (Test-Path $desktopVideo) {

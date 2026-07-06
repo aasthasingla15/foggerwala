@@ -1,0 +1,62 @@
+.termsPage {
+  width: 100%;
+}
+
+.hero {
+  position: relative;
+  background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1600');
+  background-size: cover;
+  background-position: center;
+  padding: 160px 0 100px;
+  text-align: center;
+  color: white;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(11, 58, 112, 0.95) 0%, rgba(30, 136, 229, 0.8) 100%);
+  z-index: 1;
+}
+
+.heroContainer {
+  position: relative;
+  z-index: 2;
+}
+
+.heroContainer h1 {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.heroContainer p {
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+}
+
+.contentSection {
+  padding: 80px 0 100px;
+  background-color: white;
+}
+
+.contentWrapper {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.contentWrapper h2 {
+  font-size: 1.5rem;
+  color: var(--color-dark-navy);
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.contentWrapper p {
+  font-size: 1.05rem;
+  color: var(--color-gray-600);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}

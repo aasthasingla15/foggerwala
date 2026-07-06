@@ -1,0 +1,292 @@
+.techPage {
+  width: 100%;
+}
+
+.hero {
+  position: relative;
+  background-image: url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=1600');
+  background-size: cover;
+  background-position: center;
+  padding: 180px 0 120px;
+  text-align: center;
+  color: white;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(11, 58, 112, 0.95) 0%, rgba(30, 136, 229, 0.8) 100%);
+  z-index: 1;
+}
+
+.heroContainer {
+  position: relative;
+  z-index: 2;
+}
+
+.tag {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+.heroContainer h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1.25rem;
+}
+
+.flagshipGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+@media (min-width: 992px) {
+  .flagshipGrid {
+    grid-template-columns: 1.2fr 1fr;
+  }
+}
+
+.flagshipImgWrapper {
+  position: relative;
+}
+
+.flagshipImg {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.glassBadge {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(11, 58, 112, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.5rem;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.glassBadge strong {
+  font-size: 1.1rem;
+  display: block;
+  color: var(--color-primary);
+}
+
+.glassBadge span {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+.flagshipContent h2 {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  margin-bottom: 1.5rem;
+}
+
+.flagshipContent p {
+  font-size: 1.1rem;
+  color: var(--color-gray-600);
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+.benefitsList {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .benefitsList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.benefitsList li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-dark-navy);
+}
+
+.checkIcon {
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.sectionHeader {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 4rem;
+}
+
+.sectionHeader h2 {
+  margin-bottom: 1rem;
+  font-size: 2.2rem;
+}
+
+.techCard {
+  background: white;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.cardImgWrapper {
+  position: relative;
+  height: 240px;
+}
+
+.cardImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cardIcon {
+  position: absolute;
+  bottom: -24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  background: var(--color-primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(51, 181, 245, 0.4);
+}
+
+.cardContent {
+  padding: 2.5rem 2rem 2rem;
+  flex-grow: 1;
+}
+
+.cardContent h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-dark-navy);
+}
+
+.cardContent p {
+  color: var(--color-gray-600);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Timeline */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+  padding: 2rem 0;
+}
+
+@media (min-width: 992px) {
+  .timeline {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+}
+
+.timelineStep {
+  flex: 1;
+  text-align: center;
+  padding: 1.5rem;
+  background: var(--color-gray-50);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-gray-200);
+  position: relative;
+}
+
+.stepNum {
+  width: 40px;
+  height: 40px;
+  background: var(--color-primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  margin: 0 auto 1rem;
+}
+
+.timelineStep h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.timelineStep p {
+  font-size: 0.85rem;
+  color: var(--color-gray-600);
+  margin: 0;
+}
+
+/* Comparison */
+.comparisonSection {
+  background-color: var(--color-dark-navy);
+  color: white;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.comparisonTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.comparisonTable th,
+.comparisonTable td {
+  padding: 1.25rem 1.5rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.comparisonTable th {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-weight: 700;
+}
+
+.highlightCol {
+  background: rgba(51, 181, 245, 0.15);
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.comparisonTable tr:last-child td {
+  border-bottom: none;
+}
