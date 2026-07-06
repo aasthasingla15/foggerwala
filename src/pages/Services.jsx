@@ -5,8 +5,8 @@ import { Shield, Activity, Droplet, Bug, Zap, Eye, ChevronRight } from 'lucide-r
 import styles from './Services.module.css';
 
 const servicesData = [
-  { id:1, title:'Residential Termite Control', cat:'residential', img:'/images/termite control.png', icon: <Shield />, desc:'Advanced termite detection and treatment using Termatrac T3i technology for complete home protection.' },
-  { id:2, title:'Commercial Pest Control', cat:'commercial', img:'/images/shoppingmallpestcontrol.png', icon: <Activity />, desc:'Comprehensive pest management programs tailored for businesses, offices, and commercial spaces.' },
+  { id:1, title:'Termite Control', cat:'residential', img:'/images/termite control.png', icon: <Shield />, desc:'Advanced termite detection and treatment using Termatrac T3i technology for complete home protection.' },
+  { id:2, title:'Commercial Pest Control', cat:'commercial', img:'/images/commercialpestcontrol.png', icon: <Activity />, desc:'Comprehensive pest management programs tailored for businesses, offices, and commercial spaces.' },
   { id:3, title:'Industrial Pest Control', cat:'industrial', img:'/images/foodindustrypestcontrol.png', icon: <Zap />, desc:'Heavy-duty pest control solutions for factories, plants, and industrial facilities.' },
   { id:4, title:'Cockroach Control', cat:'residential', img:'/images/cockroachcontrol.png', icon: <Bug />, desc:'Targeted gel bait and spray treatments to eliminate cockroach infestations effectively.' },
   { id:5, title:'Mosquito Control', cat:'residential', img:'/images/mosquitocontrol.png', icon: <Droplet />, desc:'Fogging and larvicide treatments to control mosquito populations and prevent dengue & malaria.' },

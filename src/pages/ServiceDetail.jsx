@@ -4,8 +4,8 @@ import { ArrowLeft, PhoneCall, MessageCircle, Shield, CheckCircle } from 'lucide
 import styles from './ServiceDetail.module.css';
 
 const servicesData = [
-  { id:1, title:'Residential Termite Control', cat:'residential', img:'/images/termite control.png', desc:'Advanced termite detection and treatment using Termatrac T3i technology for complete home protection.', longDesc:'Termites can silently cause catastrophic damage to the structural integrity of your home. Our Residential Termite Control service relies on the industry-leading Termatrac T3i device to scan and detect termite nesting locations, pathways, and moisture pools behind walls, floors, and soil without any destructive drilling. Once identified, we apply eco-friendly, WHO-approved chemical barriers that eliminate the colony and prevent future infestations.', benefits:['100% non-invasive termite scanning','3-5 Year Service Warranty with annual checks','WHO & CIB-approved eco-friendly chemicals','Complete colony elimination program'] },
-  { id:2, title:'Commercial Pest Control', cat:'commercial', img:'/images/shoppingmallpestcontrol.png', longDesc:'Pest issues in a commercial environment can damage reputation, compromise safety, and lead to regulatory penalties. We customize integrated pest management programs for business offices and commercial complexes, delivering discreet and highly effective treatments to keep your premises pristine.', benefits:['Discreet, after-hours treatment options','Compliance audits and documentation','Zero disruption to your daily operations'], desc:'Comprehensive pest management programs tailored for businesses, offices, and commercial spaces.' },
+  { id:1, title:'Termite Control', cat:'residential', img:'/images/termite control.png', desc:'Advanced termite detection and treatment using Termatrac T3i technology for complete home protection.', longDesc:'Termites can silently cause catastrophic damage to the structural integrity of your home. Our Termite Control service relies on the industry-leading Termatrac T3i device to scan and detect termite nesting locations, pathways, and moisture pools behind walls, floors, and soil without any destructive drilling. Once identified, we apply eco-friendly, WHO-approved chemical barriers that eliminate the colony and prevent future infestations.', benefits:['100% non-invasive termite scanning','3-5 Year Service Warranty with annual checks','WHO & CIB-approved eco-friendly chemicals','Complete colony elimination program'] },
+  { id:2, title:'Commercial Pest Control', cat:'commercial', img:'/images/commercialpestcontrol.png', longDesc:'Pest issues in a commercial environment can damage reputation, compromise safety, and lead to regulatory penalties. We customize integrated pest management programs for business offices and commercial complexes, delivering discreet and highly effective treatments to keep your premises pristine.', benefits:['Discreet, after-hours treatment options','Compliance audits and documentation','Zero disruption to your daily operations'], desc:'Comprehensive pest management programs tailored for businesses, offices, and commercial spaces.' },
   { id:3, title:'Industrial Pest Control', cat:'industrial', img:'/images/foodindustrypestcontrol.png', longDesc:'Heavy-duty industries require robust, reliable, and compliant pest management. We specialize in managing pests in factories, manufacturing plants, and industrial yards, ensuring safe storage of raw materials and clean workspaces.', benefits:['Heavy industrial-grade barrier treatments','Continuous monitoring programs','Customized rodent and insect exclusion plans'], desc:'Heavy-duty pest control solutions for factories, plants, and industrial facilities.' },
   { id:4, title:'Cockroach Control', cat:'residential', img:'/images/cockroachcontrol.png', longDesc:'Cockroaches carry harmful bacteria and multiply quickly. Our cockroach gel baiting and residual spray program ensures rapid knockdown of current populations and provides a protective layer to stop future nesting.', benefits:['Premium odorless gel bait application','Safe for kitchen counters and food areas','Targeted crevice and drain treatments'], desc:'Targeted gel bait and spray treatments to eliminate cockroach infestations effectively.' },
   { id:5, title:'Mosquito Control', cat:'residential', img:'/images/mosquitocontrol.png', longDesc:'Mosquitoes pose severe health risks. We target adult mosquito populations with thermal fogging and eliminate breeding sites using biological larvicides in standing water, keeping your outdoor and indoor spaces safe.', benefits:['Thermal fogging and misting options','Safe biological larvicides (Bti)','Long-term community prevention setups'], desc:'Fogging and larvicide treatments to control mosquito populations and prevent dengue & malaria.' },
@@ -44,7 +44,88 @@ const getServiceProcess = (service) => {
     ];
   }
   
-  if (title.includes('mosquito') || title.includes('fly') || title.includes('flies')) {
+  if (title.includes('cockroach')) {
+    return [
+      { step: '01', name: 'Harbourage Mapping', desc: 'Inspect kitchen cabinets, appliance motors, sinks, and drains to find active nests and cockroach egg cases.' },
+      { step: '02', name: 'Odorless Gel Baiting', desc: 'Apply premium, food-safe gel baits in crevices, corners, and pantry cabinets with zero disruption to your daily routine.' },
+      { step: '03', name: 'Residual Flushing Spray', desc: 'Apply targeted, low-toxicity residual sprays to flush cockroaches out of drains, baseboards, and wall voids.' },
+      { step: '04', name: 'Population Monitoring', desc: 'Place sticky monitor traps in key activity spots to guarantee zero cockroach resurgence.' }
+    ];
+  }
+  
+  if (title.includes('bed bug')) {
+    return [
+      { step: '01', name: 'Bedding & Frame Sweep', desc: 'Thoroughly inspect mattress seams, headboards, electrical outlets, and baseboards to map bed bug nesting.' },
+      { step: '02', name: 'Steam Heat Extraction', desc: 'Use high-temperature steam extractors to kill bed bug adults, nymphs, and eggs instantly on mattresses and fabrics.' },
+      { step: '03', name: 'Insecticide Barrier Spray', desc: 'Apply non-staining, safety-certified residual sprays in cracks, joints, and surrounding furniture.' },
+      { step: '04', name: 'Follow-Up Sweep', desc: 'Conduct a second check-up after 14 days to target any newly hatched eggs and ensure total eradication.' }
+    ];
+  }
+  
+  if (title.includes('ant')) {
+    return [
+      { step: '01', name: 'Trail & Nest Tracing', desc: 'Follow active ant trails back to their source to locate the main colony nest, entry points, and queen.' },
+      { step: '02', name: 'Colony Bait Application', desc: 'Deploy advanced ant bait stations containing food attractants that ants carry back to feed and destroy the nest.' },
+      { step: '03', name: 'Perimeter Liquid Barrier', desc: 'Apply liquid insecticide barriers around window frames, doorways, and outdoor perimeters to block incoming trails.' },
+      { step: '04', name: 'Sanitation Review', desc: 'Provide detailed guidelines to seal food storage, remove water sources, and eliminate ant attractants.' }
+    ];
+  }
+  
+  if (title.includes('spider')) {
+    return [
+      { step: '01', name: 'Web & Nest Sweeping', desc: 'Locate and brush away active webs, egg sacs, and nests from ceilings, corners, and window frames.' },
+      { step: '02', name: 'Perimeter Spraying', desc: 'Apply long-lasting chemical barriers along baseboards, entry points, and structural joints where spiders travel.' },
+      { step: '03', name: 'Outdoor Barrier Creation', desc: 'Spray foundation walls, eves, and porch ceilings to keep outdoor spiders from migrating inside.' },
+      { step: '04', name: 'Exclusion Sealing', desc: 'Identify and recommend sealing gaps around windows and doors to deny spiders physical access.' }
+    ];
+  }
+  
+  if (title.includes('bee') || title.includes('wasp')) {
+    return [
+      { step: '01', name: 'Hive Location & Risk Audit', desc: 'Identify hive size, species, and evaluate safety risks to residents and pets before starting extraction.' },
+      { step: '02', name: 'Protective Extraction', desc: 'Wear specialized professional protective suits and gear to safely secure or neutralize the hive after hours.' },
+      { step: '03', name: 'Relocation / Removal', desc: 'Relocate honeybees where possible to certified apiaries, or safely remove and dispose of wasp nests.' },
+      { step: '04', name: 'Nesting Zone Treatment', desc: 'Apply repellent treatments to the nesting spot to prevent new swarms from rebuilding in the same place.' }
+    ];
+  }
+  
+  if (title.includes('lizard')) {
+    return [
+      { step: '01', name: 'Entry Point Audit', desc: 'Locate entry channels, door gaps, and window openings where lizards slip inside the building.' },
+      { step: '02', name: 'Organic Repellent Spray', desc: 'Apply organic lizard repellent formulation around light fixtures and walls to deter lizard resting.' },
+      { step: '03', name: 'Exclusion Strip Install', desc: 'Install door sweeps, weatherstripping, and insect screens to block physical entry channels.' },
+      { step: '04', name: 'Insect Source Control', desc: 'Coordinate general pest control to eliminate flies, mosquitoes, and spiders, which are lizards\' primary food source.' }
+    ];
+  }
+  
+  if (title.includes('silverfish')) {
+    return [
+      { step: '01', name: 'Humidity & Paper Sweeps', desc: 'Identify damp spots, bookshelves, closets, and wallpaper showing silverfish feeding marks.' },
+      { step: '02', name: 'Dry Dust Formulation', desc: 'Apply non-staining, chemical dry dusts inside wall voids, bookshelves, and electrical conduits.' },
+      { step: '03', name: 'Baseboard Barrier Spray', desc: 'Spray safety-certified residual insecticides along baseboards, storage perimeters, and cupboards.' },
+      { step: '04', name: 'Dehumidification Advice', desc: 'Provide ventilation and humidity reduction advice to make the environment uninhabitable for silverfish.' }
+    ];
+  }
+  
+  if (title.includes('snake')) {
+    return [
+      { step: '01', name: 'Habitat & Entry Sweep', desc: 'Search under logs, trash piles, and inspect crawlspaces or foundation cracks for shelter spots.' },
+      { step: '02', name: 'Humane Relocation', desc: 'Safely capture and rescue active snakes using professional snake hooks, bags, and trained handlers.' },
+      { step: '03', name: 'Repellent Granules', desc: 'Spread natural, snake-deterrent sulfur-free granules along property boundaries and gardens.' },
+      { step: '04', name: 'Habitat Modification', desc: 'Advise on clearing tall grass, debris, and control rodent populations to remove primary food sources.' }
+    ];
+  }
+  
+  if (title.includes('bird')) {
+    return [
+      { step: '01', name: 'Roosting & Nesting Audit', desc: 'Identify popular roosting balconies, ledges, and shafts causing droppings accumulation and hygiene hazards.' },
+      { step: '02', name: 'Balcony Netting Install', desc: 'Install high-durability, UV-stabilized HDPE netting over open balconies, shafts, and window alcoves.' },
+      { step: '03', name: 'Stainless Steel Spikes', desc: 'Mount rust-proof polycarbonate or stainless steel spikes on narrow ledges to prevent birds from landing.' },
+      { step: '04', name: 'Sanitization Sweep', desc: 'Clean and disinfect contaminated areas to remove hazardous droppings, odor, and nesting debris.' }
+    ];
+  }
+  
+  if (title.includes('mosquito') || title.includes('fly') || title.includes('flies') || title.includes('fogging')) {
     return [
       { step: '01', name: 'Breeding Site Audit', desc: 'Locate stagnant water sources, drains, and garden areas, applying biological larvicides (Bti).' },
       { step: '02', name: 'Thermal Fogging', desc: 'Perform thermal fogging outdoors and safe residual misting indoors to knock down adult populations.' },
@@ -53,12 +134,21 @@ const getServiceProcess = (service) => {
     ];
   }
   
-  if (title.includes('rodent') || title.includes('snake') || title.includes('bird')) {
+  if (title.includes('rodent')) {
     return [
       { step: '01', name: 'Exclusion Survey', desc: 'Identify entry holes, structural gaps, grease trails, and nesting areas around the property perimeter.' },
       { step: '02', name: 'Tamper-Resistant Baiting', desc: 'Deploy pet-safe, lockable bait stations and humane traps at strategic points of activity.' },
       { step: '03', name: 'Physical Barrier Sealing', desc: 'Seal gaps with steel mesh, concrete, and install structural bird spikes or UV-stabilized netting.' },
       { step: '04', name: 'Clearance & Monitoring', desc: 'Perform regular scheduled checks to empty traps, replenish baits, and confirm zero pest activity.' }
+    ];
+  }
+  
+  if (service.cat === 'commercial' || service.cat === 'industrial' || title.includes('commercial') || title.includes('industrial') || title.includes('hospital') || title.includes('restaurant') || title.includes('school') || title.includes('office') || title.includes('food') || title.includes('pharmaceutical') || title.includes('hotel') || title.includes('shopping') || title.includes('warehouse')) {
+    return [
+      { step: '01', name: 'Facility Audit & IPM Plan', desc: 'Conduct a thorough inspection of garbage rooms, kitchens, docks, and outline an Integrated Pest Management (IPM) plan.' },
+      { step: '02', name: 'Non-Toxic Device Setup', desc: 'Deploy odorless gel baits, pheromone traps, and UV glueboard fly traps to avoid chemical contamination.' },
+      { step: '03', name: 'Targeted Perimeter Sprays', desc: 'Apply low-toxicity, odorless barrier sprays along building perimeters and trash zones after-hours.' },
+      { step: '04', name: 'AMC Audit & Logbooks', desc: 'Maintain a strict logbook of pest activity, CIB chemical certificates, and pass regulatory/FSSAI audits.' }
     ];
   }
   

@@ -7,7 +7,7 @@ $ErrorActionPreference = "Stop"
 $brainDir = "C:\Users\AASTHA\.gemini\antigravity-ide\brain\2d4e0534-c985-4f17-be5e-cbf4efafd3a1"
 $templateDir = "C:\Users\AASTHA\Downloads\termaweb\website"
 $workspaceDir = "C:\Users\AASTHA\Downloads\ezgif-8c64fca99cec9d96-jpg"
-$websiteDir = "$workspaceDir\website"
+$websiteDir = $workspaceDir
 
 Write-Host "=============================================" -ForegroundColor Cyan
 Write-Host "  Foggerwala Private Limited Setup Script    " -ForegroundColor Cyan

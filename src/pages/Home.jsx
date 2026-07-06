@@ -48,12 +48,12 @@ const StatItem = ({ value, label, suffix = '' }) => {
 };
 
 const services = [
-  { id: 1, title: 'Residential Termite Control', img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=800', icon: <Shield size={20} /> },
-  { id: 2, title: 'Commercial Pest Control', img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800', icon: <Activity size={20} /> },
-  { id: 4, title: 'Cockroach Control', img: 'https://images.unsplash.com/photo-1555685812-4b943f1cb0eb?auto=format&fit=crop&q=80&w=800', icon: <Bug size={20} /> },
-  { id: 6, title: 'Rodent Control', img: 'https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?auto=format&fit=crop&q=80&w=800', icon: <Shield size={20} /> },
-  { id: 5, title: 'Mosquito Fogging', img: 'https://images.unsplash.com/photo-1590650046871-92c887180603?auto=format&fit=crop&q=80&w=800', icon: <Droplet size={20} /> },
-  { id: 15, title: 'Commercial AMC Services', img: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800', icon: <Zap size={20} /> }
+  { id: 1, title: 'Termite Control', img: '/images/termite control.png', icon: <Shield size={20} /> },
+  { id: 2, title: 'Commercial Pest Control', img: '/images/commercialpestcontrol.png', icon: <Activity size={20} /> },
+  { id: 4, title: 'Cockroach Control', img: '/images/cockroachcontrol.png', icon: <Bug size={20} /> },
+  { id: 6, title: 'Rodent Control', img: '/images/rodentcontrol.png', icon: <Shield size={20} /> },
+  { id: 5, title: 'Mosquito Fogging', img: '/images/mosquitocontrol.png', icon: <Droplet size={20} /> },
+  { id: 15, title: 'Commercial AMC Services', img: '/images/shoppingmallpestcontrol.png', icon: <Zap size={20} /> }
 ];
 
 const featuredProducts = [
@@ -364,7 +364,7 @@ const Home = () => {
             >
               <div className={styles.techImageOutline}>
                 <img 
-                  src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=1000" 
+                  src="/images/termatract3i.png" 
                   alt="Termatrac T3i Advanced Inspection Technology" 
                   className={styles.techImage}
                 />
