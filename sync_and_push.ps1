@@ -11,15 +11,21 @@ if (Test-Path ".\setup.ps1") {
     Write-Warning "setup.ps1 not found in current directory. Skipping template copy step."
 }
 
+# 1b. Clean up old website subfolder from Git and disk
+if (Test-Path ".\website") {
+    Write-Host "Removing old website subdirectory..." -ForegroundColor Yellow
+    git rm -r website -f --ignore-unmatch | Out-Null
+    Remove-Item -Recurse -Force website -ErrorAction SilentlyContinue
+}
+
 # 2. Add and commit all changed files
 Write-Host "`n[2/3] Staging and committing files to Git..." -ForegroundColor Yellow
 git add .
 git commit -m "Update service details, process steps, local images, warranty terms, and contact page helpline dashboard"
 
-# 3. Pull remote changes and Push to GitHub main branch
-Write-Host "`n[3/3] Pulling remote changes and Pushing to GitHub (origin main)..." -ForegroundColor Yellow
-git pull --rebase origin main
-git push origin main
+# 3. Push to GitHub main branch (force pushing to update root structure for Vercel)
+Write-Host "`n[3/3] Pushing changes to GitHub (origin main)..." -ForegroundColor Yellow
+git push origin HEAD:main --force
 
 Write-Host "`n=============================================" -ForegroundColor Green
 Write-Host "  Success! Changes have been pushed to GitHub!" -ForegroundColor Green
