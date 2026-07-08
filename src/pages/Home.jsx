@@ -53,22 +53,40 @@ const services = [
   { id: 4, title: 'Cockroach Control', img: '/images/cockroachcontrol.png', icon: <Bug size={20} /> },
   { id: 6, title: 'Rodent Control', img: '/images/rodentcontrol.png', icon: <Shield size={20} /> },
   { id: 5, title: 'Mosquito Fogging', img: '/images/mosquitocontrol.png', icon: <Droplet size={20} /> },
-  { id: 15, title: 'Commercial AMC Services', img: '/images/shoppingmallpestcontrol.png', icon: <Zap size={20} /> }
+  { id: 3, title: 'Industrial Pest Control', img: '/images/industrypestcontrol.png', icon: <Zap size={20} /> }
 ];
 
 const featuredProducts = [
-  { id: 1, title: 'Thermal Fogging Machine', cat: 'equipment', img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=800', desc: 'High thermal output power with a pulse-jet motor for large outdoor spaces.' },
-  { id: 2, title: 'ULV Fogger', cat: 'equipment', img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800', desc: 'Advanced cold fogging with electric motor and adjustable micro-droplet sizes.' },
-  { id: 7, title: 'Rodent Bait Stations', cat: 'equipment', img: 'https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?auto=format&fit=crop&q=80&w=800', desc: 'Tamper-resistant locking station safe for non-target animals.' },
-  { id: 12, title: 'Termatrac T3i Devices', cat: 'equipment', img: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800', desc: 'Flagship non-invasive radar termite detection scanner.' },
-  { id: 13, title: 'Termite Chemicals', cat: 'chemicals', img: 'https://images.unsplash.com/photo-1607619056574-7b8f304b3b8a?auto=format&fit=crop&q=80&w=800', desc: 'WHO & CIB registered transfer chemicals for long term soil barriers.' },
-  { id: 16, title: 'Premium PPE Kits', cat: 'safety', img: 'https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&fit=crop&q=80&w=800', desc: 'Disposable splash-resistant protective coveralls and face shields.' }
+  { id: 1, title: 'Piramid Termiticide', cat: 'chemicals', img: '/images/piramidTermiticide.png', desc: 'High-performance termiticide for pre and post-construction termite control, establishing a long-lasting chemical barrier.' },
+  { id: 2, title: 'Cutter Insect Repellent', cat: 'chemicals', img: '/images/cutter.png', desc: 'Personal insect repellent spray designed to protect outdoor technicians and residents from mosquito and tick bites.' },
+  { id: 14, title: 'Moksh Mouse & Rat Glue Board', cat: 'equipment', img: '/images/MOKSH Mouse & Rat Glue.png', desc: 'Super-sticky, non-poisonous glue board trap for capturing mice, rats, and crawling insects in sensitive areas.' },
+  { id: 16, title: 'Masterfog ULV Fogger', cat: 'equipment', img: '/images/masterfogulv.png', desc: 'Advanced electric Ultra-Low Volume (ULV) cold fogger for indoor disinfection and insect misting.' },
+  { id: 24, title: 'Bayer Agenda 25 EC', cat: 'chemicals', img: '/images/agenda.png', desc: 'Premium fipronil-based termiticide from Bayer, offering the legendary non-repellent "Transfer Effect" for colony elimination.' },
+  { id: 33, title: 'Bayer Maxforce Forte Gel', cat: 'chemicals', img: '/images/maxforceforte.png', desc: "Bayer's legendary cockroach gel bait, featuring immediate palatability and Domino Effect colony elimination." }
 ];
 
 const testimonials = [
-  { name: 'Karan Sharma', role: 'Homeowner, Gurgaon', rating: 5, img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200', review: 'Absolutely incredible! They used a radar device to trace termites in our wooden paneling without breaking anything. Eradicated them in one visit.' },
-  { name: 'Dr. Renu Malhotra', role: 'Clinic Director, Noida', rating: 5, img: 'https://images.unsplash.com/photo-1594744803329-e58b31de215f?auto=format&fit=crop&q=80&w=200', review: 'We have an annual contract with Foggerwala for our medical facility. Their service is extremely hygienic, odor-free, and fully compliant with healthcare standards.' },
-  { name: 'Amit Gupta', role: 'Warehouse Manager, Delhi', rating: 5, img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200', review: 'Best industrial pest management service in NCR. Their warehouse pest program saved us from major inventory losses. I highly recommend them.' },
+  { 
+    name: 'Atma Prakash Mishra', 
+    role: 'Satisfied Customer', 
+    rating: 5, 
+    img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200', 
+    review: 'I am extremely satisfied with the services provided by Foggerwala Pest Control Service*. The team Employee Mr Chandrahesh professional, punctual, and highly knowledgeable. They conducted a thorough inspection, explained the treatment process in detail, and ensured that all pest-related concerns were addressed effectively. The service was carried out with great care and professionalism, and the results have been excellent. Their commitment to customer satisfaction, timely response, and quality service is truly commendable. I highly recommend Foggerwala Pest Control Service to anyone looking for reliable and effective pest management solutions.' 
+  },
+  { 
+    name: 'Neha Jha', 
+    role: 'Property Owner', 
+    rating: 5, 
+    img: 'https://images.unsplash.com/photo-1594744803329-e58b31de215f?auto=format&fit=crop&q=80&w=200', 
+    review: 'Excellent pest control service! The team arrived on time, explained the entire process clearly, and completed the treatment professionally. I noticed a significant improvement after the service. The staff was courteous, knowledgeable, and efficient. Highly recommended for anyone looking for reliable pest control solutions.' 
+  },
+  { 
+    name: 'Jatendra Kumar', 
+    role: 'Corporate Manager', 
+    rating: 5, 
+    img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200', 
+    review: 'The team was professional and courteous throughout. Outstanding customer service and great result' 
+  }
 ];
 
 const industries = [
@@ -521,7 +539,7 @@ const Home = () => {
             <p className={styles.partnersTitle}>Trusted by commercial groups and local authorities</p>
             <div className={styles.logoContainer}>
               <div className={styles.logoTrack}>
-                {['TATA Group', 'ICICI Bank', 'L&T Construction', 'DDA Societies', 'NCR Hospitals', 'Metro Warehouses'].map((partner, pIdx) => (
+                {['Raymond', 'Woodland', 'Red Tape', 'Akasha Education Services Ltd', 'Samvardhana Motherson Global Management', 'Surya Roshni Limited', 'Moolchand Hospital'].map((partner, pIdx) => (
                   <div key={pIdx} className={styles.logoItem}>
                     <span>{partner}</span>
                   </div>

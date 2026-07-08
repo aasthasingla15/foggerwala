@@ -24,25 +24,25 @@ const industriesData = [
 const testimonials = [
   {
     id: 1,
-    name: 'Karan Malhotra',
-    role: 'Operations Director, Imperial Hotel',
-    text: 'Maintaining pest-free standards is critical for our brand. Foggerwalas proactive commercial program has been flawless. Their reporting is highly professional.',
+    name: 'Atma Prakash Mishra',
+    role: 'Satisfied Customer',
+    text: 'I am extremely satisfied with the services provided by Foggerwala Pest Control Service*. The team Employee Mr Chandrahesh professional, punctual, and highly knowledgeable. They conducted a thorough inspection, explained the treatment process in detail, and ensured that all pest-related concerns were addressed effectively. The service was carried out with great care and professionalism, and the results have been excellent. Their commitment to customer satisfaction, timely response, and quality service is truly commendable. I highly recommend Foggerwala Pest Control Service to anyone looking for reliable and effective pest management solutions.',
     rating: 5,
     img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150'
   },
   {
     id: 2,
-    name: 'Shalini Sen',
-    role: 'Facility Head, Lifecare Hospital',
-    text: 'Pest management in hospitals requires high safety and hygiene protocols. Foggerwala uses certified child-safe and pet-safe procedures. Excellent work!',
+    name: 'Neha Jha',
+    role: 'Property Owner',
+    text: 'Excellent pest control service! The team arrived on time, explained the entire process clearly, and completed the treatment professionally. I noticed a significant improvement after the service. The staff was courteous, knowledgeable, and efficient. Highly recommended for anyone looking for reliable pest control solutions.',
     rating: 5,
-    img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150'
+    img: 'https://images.unsplash.com/photo-1594744803329-e58b31de215f?auto=format&fit=crop&q=80&w=150'
   },
   {
     id: 3,
-    name: 'Rohan Joshi',
-    role: 'Supply Chain Manager, Apex Logi-Warehouses',
-    text: 'Rodent damage was a massive headache in our facility. Foggerwalas bait station setup and ongoing monitoring completely resolved the issue within weeks.',
+    name: 'Jatendra Kumar',
+    role: 'Corporate Manager',
+    text: 'The team was professional and courteous throughout. Outstanding customer service and great result',
     rating: 5,
     img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150'
   }
