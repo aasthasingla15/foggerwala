@@ -70,22 +70,19 @@ const testimonials = [
     name: 'Atma Prakash Mishra', 
     role: 'Satisfied Customer', 
     rating: 5, 
-    img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200', 
     review: 'I am extremely satisfied with the services provided by Foggerwala Pest Control Service*. The team Employee Mr Chandrahesh professional, punctual, and highly knowledgeable. They conducted a thorough inspection, explained the treatment process in detail, and ensured that all pest-related concerns were addressed effectively. The service was carried out with great care and professionalism, and the results have been excellent. Their commitment to customer satisfaction, timely response, and quality service is truly commendable. I highly recommend Foggerwala Pest Control Service to anyone looking for reliable and effective pest management solutions.' 
   },
   { 
     name: 'Neha Jha', 
     role: 'Property Owner', 
     rating: 5, 
-    img: 'https://images.unsplash.com/photo-1594744803329-e58b31de215f?auto=format&fit=crop&q=80&w=200', 
     review: 'Excellent pest control service! The team arrived on time, explained the entire process clearly, and completed the treatment professionally. I noticed a significant improvement after the service. The staff was courteous, knowledgeable, and efficient. Highly recommended for anyone looking for reliable pest control solutions.' 
   },
   { 
     name: 'Jatendra Kumar', 
     role: 'Corporate Manager', 
     rating: 5, 
-    img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200', 
-    review: 'The team was professional and courteous throughout. Outstanding customer service and great result' 
+    review: 'Foggerwala exceeded our expectations. From the initial inspection to the final treatment, everything was handled professionally. Their advanced equipment and experienced technicians gave us complete confidence, and the results have been excellent. We highly recommend them for both residential and commercial pest management.' 
   }
 ];
 
@@ -584,7 +581,7 @@ const Home = () => {
                 </div>
                 <p className={styles.reviewText}>"{t.review}"</p>
                 <div className={styles.reviewerInfo}>
-                  <img src={t.img} alt={t.name} className={styles.reviewerAvatar} />
+                  {t.img && <img src={t.img} alt={t.name} className={styles.reviewerAvatar} />}
                   <div>
                     <strong>{t.name}</strong>
                     <span>{t.role}</span>
