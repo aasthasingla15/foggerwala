@@ -34,7 +34,7 @@ const productsData = [
   { id: 27, title: 'Barcelo Insecticide', cat: 'chemicals', img: '/images/barcelo.png', features: ['Suspension concentrate', 'Odorless indoor application', 'Safe residential spray', 'Effective ants & bugs'] },
   { id: 28, title: 'Bi-Larv Larvicide', cat: 'chemicals', img: '/images/bi-larv.png', features: ['Insect growth regulator', 'Interrupts molting cycle', 'Highly target specific', 'Safe for water systems'] },
   { id: 29, title: 'Bayer K-Obiol', cat: 'chemicals', img: '/images/k-obiol.png', features: ['Liquid grain protectant', 'Up to 12 months guard', 'Zero withholding period', 'Controls weevils & borers'] },
-  { id: 30, title: 'Bayer K-Othrine WG 250', cat: 'chemicals', img: '/images/kothrinewg.png', features: ['Water-dispersible granules', 'Odorless & non-staining', 'Up to 3 months barrier', 'All wall surface stability'] },
+  { id: 30, title: 'Bayer K-Othrine WG 250', cat: 'chemicals', img: '/images/kothrinewg.png', features: ['Water-dispersible granules', 'Odorless & non-staining', 'Up to 3 months residual barrier', 'All wall surface stability'] },
   { id: 31, title: 'Bayer K-Othrine Flow', cat: 'chemicals', img: '/images/k-othrine flow.png', features: ['Flowable suspension', 'Excellent surface persistence', 'No visible residues', 'All crawling pests target'] },
   { id: 32, title: 'Kingfog Fogging Chemical', cat: 'chemicals', img: '/images/kingfog.png', features: ['Deltamethrin active', 'High thermal stability', 'Dense mist generation', 'Vector control campaigns'] },
   { id: 33, title: 'Bayer Maxforce Forte Gel', cat: 'chemicals', img: '/images/maxforceforte.png', features: ['Bayer cockroach gel bait', 'Domino effect colony kill', 'Odorless clean placement', 'Highly palatable matrix'] },
